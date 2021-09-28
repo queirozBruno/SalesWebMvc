@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace SalesWebMvc.Services
 {
@@ -16,9 +17,11 @@ namespace SalesWebMvc.Services
             _context = context;
         }
 
-        public List<Department> FindAll()
+        //Foi usado implementação assíncrona, que melhora a velocida de acesso à dados
+        //Para isso foi utilizado as Tasks, que é um objeto que encapsula o processamento assíncrono, deixando a programação muito mais fácil
+        public async Task<List<Department>> FindAllAsync()
         {
-            return _context.Department.OrderBy(x => x.Name).ToList();
+            return await _context.Department.OrderBy(x => x.Name).ToListAsync();
         }
     }
 }
